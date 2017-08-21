@@ -1,0 +1,52 @@
+body {
+    word-wrap: break-word;
+}
+
+article {
+    padding:0 .5em .5em;
+}
+
+.harbourMap {
+    height: 250px;
+}
+
+.right {
+    float: right;
+    width: 20%;
+    padding:.5em 0 .5em .5em;
+}
+
+.right2 {
+    float: right;
+    width: 30%;
+    padding:.5em 0 .5em .5em;
+}
+
+.homeimg {
+    float: left;
+    width: 100%;
+    padding-bottom: 1em;
+}
+
+.images {
+    width: 100%;
+    margin: auto auto;
+}
+
+.ui-li-static.ui-collapsible > .ui-collapsible-heading {
+    margin: 0;
+}
+.ui-li-static.ui-collapsible {
+    padding: 0;
+}
+.ui-li-static.ui-collapsible > .ui-collapsible-heading > .ui-btn {
+    border-top-width: 0;
+}
+.ui-li-static.ui-collapsible > .ui-collapsible-heading.ui-collapsible-heading-collapsed > .ui-btn,
+.ui-li-static.ui-collapsible > .ui-collapsible-content {
+    border-bottom-width: 0;
+}
+
+.myForm {
+    padding: 10px 20px;
+}

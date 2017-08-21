@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <title>Sveriges fritidsbåtshamnar</title>
+
+    <link rel="stylesheet" href="../../lib/jquery/jquery.mobile-1.4.5.css" />
+    <link rel="stylesheet" href="../../lib/jquery/themes/marine.css" />
+    <link rel="stylesheet" href="../../lib/jquery/themes/jquery.mobile.icons.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../lib/leaflet/leaflet.css" />
+    <link rel="stylesheet" type="text/css" href="../../lib/leaflet/MarkerCluster.css" />
+    <link rel="stylesheet" type="text/css" href="../../lib/leaflet/MarkerCluster.Default.css" />
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div data-role="header" data-theme="a" data-position="fixed">
+        <a href="#menu" class="ui-btn ui-corner-all ui-shadow ui-icon-bars ui-btn-icon-left ui-btn-icon-notext">Meny</a>
+        <h1>Sveriges fritidsbåtshamnar</h1>
+    </div><!-- /header -->
+
+    <div data-role="footer" data-theme="a" data-position="fixed">
+        <div data-role="navbar">
+            <ul>
+                <li><a href="#home" class="ui-btn ui-icon-user ui-btn-icon-top">Hem</a></li>
+                <li><a href="#harbour-map" class="ui-btn ui-icon-location ui-btn-icon-top">Hamnkarta</a></li>
+                <li><a href="#harbour-list" class="ui-btn ui-icon-bullets ui-btn-icon-top">Hamnlista</a></li>
+                <li><a href="#about" class="ui-btn ui-icon-info ui-btn-icon-top">Om</a></li>
+            </ul>
+        </div>
+        <h1>Copyright 2017 by Sofia Kristiansen</h1>
+    </div><!-- /footer -->
+
+    <div data-role="panel" id="menu" data-theme="a" data-display="overlay">
+        <ul data-role="listview">
+            <li><a href="#home" class="ui-btn ui-icon-home ui-btn-icon-left">Hem</a></li>
+            <li data-role="collapsible" data-iconpos="right" data-inset="false">
+                <h3>Hitta hamn</h3>
+                <ul data-role="listview" data-theme="b">
+                    <li><a href="#harbour-map">Hamnkarta</a></li>
+                    <li><a href="#harbour-list">Hamnlista</a></li>
+                </ul>
+            </li>
+            <li><a href="#about" class="ui-btn ui-icon-info ui-btn-icon-left">Om</a></li>
+        </ul>
+    </div><!-- /panel -->
+
+    <div id="home" data-role="page">
+        <div role="main" class="ui-content">
+            <article>
+                <h3>Alla Sveriges fritidsbåtshamnar – samlade på ett &amp; samma ställe</h3>
+                <img src="img/hamn.jpeg" class="homeimg" alt="Gullholmens gästhamn">
+                <p>Här får du information om alla Sveriges fritidsbåtshamnar och
+                deras serviceanläggning. Serviceanläggning kan exempelvis vara
+                tömningsstation för båtens toalettavfall, landtoalett eller påfyllning
+                av färskvatten med mera.<br><br>
+                Du kan även läsa andra båtägares kommentarer om hamnarna, så att
+                du kan undvika att lägga till vid en hamn där exempelvis tömningen
+                är ur funktion.<br><br>
+                Hitta en fritidsbåtshamn snabbt och lätt genom vår sökfunktion i
+                hamnlistan eller i vår hamnkarta.</p>
+            </article>
+        </div><!-- /content -->
+    </div><!-- /page -->
+
+    <div id="about" data-role="page">
+        <div role="main" class="ui-content">
+            <article>
+                <h2>Om appen Sveriges fritidsbåtshamnar</h2>
+                <p>Appen ger dig som användaren möjlighet att hitta fritidsbåtshamnar
+                i Sverige och få information om den serviceanläggning som finns
+                tillgänglig i vardera hamn.<br><br>
+                Appen använder sig av användarens position för att snabbt och
+                lätt hitta närmaste fritidsbåtshamn. Vill man inte dela med sig
+                av sin position kan man självklart använda hamnkartan ändå eller
+                söka efter fritidsbåtshamnar i vår söktjänst, hamnlista.<br><br>
+                I appen kan användaren läsa vad andra fritidsbåtsägare skrivit
+                om de olika hamnarna, för att på så sätt kunna undvika att lägga
+                till i en hamn där en eller flera av faciliteterna är ur funktion.<br><br>
+                Informationen i appen är hämtad direkt från Transportstyrelsens
+                "Fritidsbåtshamnar och tömningsstationer", som har utvecklats
+                för att göra det lättare för fritidsbåtsägare att hitta en hamn
+                där de kan tömma sitt toalettavfall.<br><br>
+                Det är sedan år 2015 förbjudet för fritidsbåtsägare att tömma
+                sitt toalettavfall i hav, sjöar och inre vattendrag.</p>
+            </article>
+        </div><!-- /content -->
+    </div><!-- /page -->
+
+    <div id="harbour-map" data-role="page">
+        <div role="main" class="ui-content">
+            <h1>Hamnkarta</h1>
+            <p><b>Antal fritidsbåtshamnar i Sverige:</b> <i id="total_harbour"></i><br>
+            <b>Antal hamnar på kartan:</b> <i>1200</i><br><br>
+            <b>Info:</b> De fritidsbåtshamnar som visas på kartan är de där vi har haft tillgång till
+            deras position i latitud och longitud. För att se samtliga fritidsbåtshamnar
+            kan du söka i vår hamnlista.</p>
+
+            <div id="harbourMap" class="harbourMap"></div>
+        </div><!-- /content -->
+    </div><!-- /page -->
+
+    <div id="harbour-list" data-role="page">
+        <div role="main" class="ui-content">
+            <h1>Hamnlista</h1>
+            <p>Välj kommun i listan för att hitta en fritidsbåtshamn.</p>
+            <div data-role="collapsible">
+                <h3>Kommun</h3>
+                <ul id="harbour-listview" data-role="listview" data-inset="false" data-theme="b" data-filter="true" data-filter-placeholder="Sök på kommun...">
+                    <li>Nothing here</li>
+                </ul>
+            </div>
+        </div><!-- /content -->
+    </div><!-- /page -->
+
+    <div id="harbour-page" data-role="page">
+        <div id="harbour-subpage" role="main" class="ui-content">
+            Nothing yet.
+        </div><!-- /content -->
+    </div><!-- /page -->
+
+
+    <script src="../../lib/jquery/jquery-2.1.4.js"></script>
+    <script src="../../lib/jquery/jquery.mobile-1.4.5.js"></script>
+    <script>L_PREFER_CANVAS = true;</script>
+    <script type="text/javascript" src="../../lib/leaflet/leaflet.js"></script>
+    <script type="text/javascript" src="../../lib/leaflet/leaflet.markercluster.js"></script>
+    <script type="text/javascript" src="js/harbour.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
